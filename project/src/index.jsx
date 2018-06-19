@@ -1,17 +1,26 @@
-import React , { Component } from 'react';
+import React , { Component, Fragment } from 'react';
 import ReactDom from 'react-dom';
-import Menu from './Menu/Menu.jsx';
-import Login from './Login/Login.jsx';
-import Article from './Article/Article.jsx';
+
+import Menu from 'components/Menu';
+
+import './style.css';
 
 const menuItems = [
     {
         href: '#',
-        title: 'Main'
+        title: 'Home'
     },
     {
         href: '#',
-        title: 'Categories'
+        title: 'New features'
+    },
+    {
+        href: '#',
+        title: 'Press'
+    },
+    {
+        href: '#',
+        title: 'New hires'
     },
     {
         href: '#',
@@ -24,16 +33,14 @@ const post = {
     '                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet commodi consequatur delectus doloremque dolorum eaque eius enim, fuga fugit non officia, quasi sunt velit, veniam voluptatem. Ad blanditiis excepturi illo, laudantium nesciunt nihil perferendis placeat porro, qui quia sed sequi.\n' +
     '                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aperiam, delectus deserunt dignissimos distinctio dolores eius ipsum molestiae necessitatibus nihil officia placeat recusandae repellendus reprehenderit repudiandae rerum sed sequi sint sit soluta tempora vitae voluptatem. Ad atque doloribus hic nostrum. Alias aliquid animi commodi consequuntur cum deserunt dicta dolores eveniet hic, in maiores maxime molestias nisi perspiciatis possimus quae quam? Aliquam architecto cupiditate eos eum, illo itaque laborum magni molestias omnis possimus quisquam quo sint soluta tempore, vitae! Atque consequatur culpa cupiditate dolorum ducimus esse ex explicabo, facilis hic impedit incidunt laborum maiores maxime minima nihil obcaecati odit omnis porro quaerat, quam, quisquam rerum similique sit unde voluptatibus. Aliquam aut culpa doloremque ea esse expedita fugiat fugit ipsa nemo numquam, obcaecati optio perferendis qui rerum sapiente sequi sit ullam voluptates? Assumenda at, atque eos esse et exercitationem hic in ipsa iusto molestias necessitatibus nesciunt nobis quo recusandae repellendus rerum voluptates!'
 };
-class Layout extends Component{
+class App extends Component{
     render(){
         return(
-            <div className="layout">
+            <Fragment>
                 <Menu items={menuItems}/>
-                <Login/>
-                <Article options={post}/>
-            </div>
+            </Fragment>
         );
     }
 }
 
-ReactDom.render(<Layout />, document.getElementById('layout'));
+ReactDom.render(<App />, document.getElementById('app'));
