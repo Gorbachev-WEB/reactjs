@@ -2,6 +2,7 @@ import React , { Component, Fragment } from 'react';
 import ReactDom from 'react-dom';
 
 import Menu from 'components/Menu';
+import Comments from 'containers/BlogContainer';
 
 import './style.css';
 
@@ -37,7 +38,8 @@ class App extends Component{
     render(){
         return(
             <Fragment>
-                <Menu items={menuItems}/>
+                <Menu items={menuItems} />
+                <Comments />
             </Fragment>
         );
     }
