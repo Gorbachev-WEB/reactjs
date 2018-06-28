@@ -1,39 +1,56 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 
+import {loadUsers} from 'actions/users';
 import UserList from 'components/UserList';
 
-export default class UserListContainer extends Component {
-    constructor(props){
-        super(props);
-
-        this.state = {
-            loading: false,
-            users: []
-        };
-    }
+class UserListContainer extends Component {
 
     componentDidMount(){
-        this.setState({loading: true});
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then((response) => response.json())
-            .then((users) => {
-                this.setState({
-                    loading: false,
-                    users
-                });
-            })
-            .catch(() => {
-                this.setState({loading: false});
-            });
+        const {load, users} = this.props;
+        if(!users.length){
+            load();
+        }
+    }
+
+    handleLoadMore = () => {
+        const {load} = this.props;
+        load();
     }
 
     render(){
-        const {users, loading} = this.state;
+        const {users, loading} = this.props;
 
         return(
             <Fragment>
-                {loading ? <div>Loading...</div> : <UserList users={users} /> }
+                {loading && !users.length ? <div>Loading...</div> : <UserList onLoadMore={this.handleLoadMore} users={users} /> }
             </Fragment>
         );
     }
 }
+
+function mapStateToProps(state, props){
+    return {
+        ...props,
+        page: state.users.page,
+        loading: state.users.loading,
+        users: state.users.entries,
+    }
+}
+
+function mapDispatchToProps(dispatch, props){
+    return{
+        ...props,
+        load: loadUsers.bind(null, dispatch),
+    }
+}
+
+function mergeMap(stateProps, dispatchProps, ownProps){
+    return{
+        ...stateProps,
+        ...ownProps,
+        load: () => dispatchProps.load(stateProps.page),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeMap)(UserListContainer);

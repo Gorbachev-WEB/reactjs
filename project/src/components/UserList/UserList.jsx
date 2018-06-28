@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 export default class UserList extends Component {
     render(){
-        const { users } = this.props;
+        const { users, onLoadMore } = this.props;
 
         return(
-            <ul>
-                {users.map(user => <li key={user.id}><span>{user.id}:</span>{user.name}</li>)}
-            </ul>
+            <div>
+                <ul>
+                    {users.map(user => <li key={user.id}><Link to={`/users/${user.id}`}><span>{user.id}:</span>{user.name}</Link></li>)}
+                </ul>
+                <button onClick={onLoadMore}>Load more</button>
+            </div>
         );
     }
 }
